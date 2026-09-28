@@ -1,0 +1,9 @@
+.venv/
+target/
+dbt_packages/
+logs/
+*.duckdb
+*.duckdb.wal
+external_docs/
+.user.yml
+.idea/

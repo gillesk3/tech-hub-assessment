@@ -1,0 +1,24 @@
+name: rental_analytics
+version: "1.0.0"
+profile: rental_analytics
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+seeds:
+  rental_analytics:
+    +schema: raw
+
+models:
+  rental_analytics:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table

@@ -1,0 +1,12 @@
+version: 2
+
+seeds:
+  - name: listings
+    config:
+      column_types:
+        PRICE: varchar            # '$125.00' — dbt infers a number and fails
+
+  - name: calendar
+    config:
+      column_types:
+        RESERVATION_ID: varchar   # literal 'NULL' strings — dbt infers an integer and fails

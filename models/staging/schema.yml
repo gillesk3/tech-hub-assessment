@@ -1,0 +1,87 @@
+version: 2
+
+models:
+  - name: stg_calendar
+    description: One row per listing per day, cleaned and typed from the calendar seed.
+    columns:
+      - name: calendar_id
+        description: "{{ doc('calendar_id') }}"
+        data_tests:
+          - unique
+          - not_null
+      - name: listing_id
+        description: "{{ doc('listing_id') }}"
+      - name: listing_date
+        description: "{{ doc('listing_date') }}"
+      - name: is_available
+        description: "{{ doc('is_available') }}"
+      - name: reservation_id
+        description: "{{ doc('reservation_id') }}"
+      - name: price
+        description: "{{ doc('price') }}"
+      - name: minimum_nights
+        description: "{{ doc('minimum_nights') }}"
+      - name: maximum_nights
+        description: "{{ doc('maximum_nights') }}"
+
+  - name: stg_listings
+    description: One row per listing, cleaned and typed from the listings seed. Rows with no ID are excluded.
+    columns:
+      - name: listing_id
+        description: "{{ doc('listings_listing_id') }}"
+        data_tests:
+          - unique
+          - not_null
+      - name: listing_name
+        description: "{{ doc('listing_name') }}"
+      - name: host_id
+        description: "{{ doc('host_id') }}"
+      - name: host_name
+        description: "{{ doc('host_name') }}"
+      - name: host_since
+        description: "{{ doc('host_since') }}"
+      - name: host_location
+        description: "{{ doc('host_location') }}"
+      - name: host_verifications
+        description: "{{ doc('host_verifications') }}"
+      - name: neighborhood
+        description: "{{ doc('neighborhood') }}"
+      - name: property_type
+        description: "{{ doc('property_type') }}"
+      - name: room_type
+        description: "{{ doc('room_type') }}"
+      - name: accommodates
+        description: "{{ doc('accommodates') }}"
+      - name: bathrooms_text
+        description: "{{ doc('bathrooms_text') }}"
+      - name: bedrooms
+        description: "{{ doc('bedrooms') }}"
+      - name: beds
+        description: "{{ doc('beds') }}"
+      - name: amenities
+        description: "{{ doc('listings_amenities') }}"
+      - name: listing_price
+        description: "{{ doc('listing_price') }}"
+      - name: number_of_reviews
+        description: "{{ doc('number_of_reviews') }}"
+      - name: first_review
+        description: "{{ doc('first_review') }}"
+      - name: last_review
+        description: "{{ doc('last_review') }}"
+      - name: review_scores_rating
+        description: "{{ doc('review_scores_rating') }}"
+
+  - name: stg_amenities_changelog
+    description: One row per listing per amenities change, cleaned and typed from the amenities changelog seed.
+    columns:
+      - name: amenities_changelog_id
+        description: "{{ doc('amenities_changelog_id') }}"
+        data_tests:
+          - unique
+          - not_null
+      - name: listing_id
+        description: "{{ doc('listing_id') }}"
+      - name: changed_at
+        description: "{{ doc('changed_at') }}"
+      - name: amenities
+        description: "{{ doc('changelog_amenities') }}"
