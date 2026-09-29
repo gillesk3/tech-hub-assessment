@@ -1,0 +1,35 @@
+with
+
+s_listings as (select * from {{ ref('stg_listings') }}),
+
+s_amenities as (select * from {{ ref('int_amenities_history') }}),
+
+s_calendar as (select * from {{ ref('stg_calendar') }}),
+
+
+listing_days as (
+
+    select
+        s_calendar.listing_id,
+        s_listings.listing_name,
+        s_listings.neighborhood,
+        not s_calendar.is_available as is_occupied,
+        s_calendar.minimum_nights,
+        s_calendar.maximum_nights,
+        s_amenities.amenities,
+        s_calendar.price,
+        if(s_calendar.reservation_id is null, 0, s_calendar.price) as revenue,
+        s_calendar.listing_date
+
+    from s_calendar
+    left join s_listings
+        on s_calendar.listing_id = s_listings.listing_id
+    left join s_amenities
+        on
+            s_calendar.listing_id = s_amenities.listing_id
+            and s_calendar.listing_date >= s_amenities.valid_from
+            and s_calendar.listing_date < s_amenities.valid_to
+
+)
+
+select * from listing_days

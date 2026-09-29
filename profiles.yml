@@ -3,5 +3,5 @@ rental_analytics:
   outputs:
     dev:
       type: duckdb
-      path: rental.duckdb
+      path: dev.duckdb
       threads: 4

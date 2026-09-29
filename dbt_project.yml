@@ -7,7 +7,6 @@ seed-paths: ["seeds"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
 macro-paths: ["macros"]
-target-path: "target"
 clean-targets: ["target", "dbt_packages"]
 
 seeds:
@@ -17,8 +16,11 @@ seeds:
 models:
   rental_analytics:
     staging:
+      +schema: stg
       +materialized: view
     intermediate:
+      +schema: int
       +materialized: view
     marts:
+      +schema: marts
       +materialized: table
