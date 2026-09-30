@@ -1,0 +1,20 @@
+version: 2
+
+analyses:
+  - name: amenity_revenue
+    description: >
+      Business problem 1: total revenue by month, split by whether the listing had air conditioning
+      on each day, with the share of revenue from listings without it. July 2022 = 21.2% without AC.
+
+  - name: neighbours
+    description: >
+      Business problem 2: average price change per neighborhood between 2021-07-12 and 2022-07-11,
+      averaged over every listing (including unchanged and reduced prices). Back Bay = $44.
+      Listing 276450 has no neighborhood and is excluded.
+
+  - name: long_stay
+    description: >
+      Business problem 3: longest possible stay for listings with both a lockbox and a first aid kit.
+      Finds runs of consecutive available days (gaps and islands) and caps each run at the host's
+      maximum_nights on check-in. Listing 1303261 = 159 nights. Stays are measured within the calendar
+      period only.

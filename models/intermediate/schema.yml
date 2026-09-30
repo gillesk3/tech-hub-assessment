@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: int_amenities_history
+    description: >
+      Amenities history as a type 2 slowly changing dimension: one row per listing per amenities version,
+      with the period each version was valid. Built from the amenities changelog; used to attach the
+      amenities a listing had on a given day.
+    columns:
+      - name: amenities_changelog_id
+        description: "{{ doc('amenities_changelog_id') }}"
+        data_tests:
+          - unique
+          - not_null
+      - name: listing_id
+        description: "{{ doc('listing_id') }}"
+        data_tests:
+          - not_null
+          - unique:
+              name: one_current_amenities_version_per_listing
+              config:
+                where: "is_current"
+      - name: amenities
+        description: "{{ doc('changelog_amenities') }}"
+      - name: valid_from
+        description: "{{ doc('amenities_valid_from') }}"
+      - name: valid_to
+        description: "{{ doc('amenities_valid_to') }}"
+      - name: is_current
+        description: "{{ doc('amenities_is_current') }}"

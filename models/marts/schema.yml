@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: fact_listing
+    description: |
+      One row per listing per day for the calendar period (2021-07-12 to 2022-07-11), for revenue,
+      occupancy and amenity analysis. Amenities are as of each day where changelog history exists,
+      otherwise the listing's current amenities.
+
+      Use with care:
+      - Sum `revenue`, not `price`: `price` is the asking rate on every day, booked or not.
+      - Occupancy rate is the average of `is_occupied` over days.
+      - July 2021 and July 2022 are partial months, so their totals are not comparable with full months.
+      - Listing 276450 has calendar and amenities data but no listings row, so its name and neighborhood are null.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - listing_id
+              - listing_date
+    columns:
+      - name: listing_id
+        description: "{{ doc('listing_id') }}"
+        data_tests:
+          - not_null
+      - name: listing_name
+        description: "{{ doc('listing_name') }}"
+      - name: neighborhood
+        description: "{{ doc('neighborhood') }}"
+      - name: is_occupied
+        description: "{{ doc('is_occupied') }}"
+      - name: minimum_nights
+        description: "{{ doc('minimum_nights') }}"
+      - name: maximum_nights
+        description: "{{ doc('maximum_nights') }}"
+      - name: amenities
+        description: "{{ doc('fact_amenities') }}"
+      - name: price
+        description: "{{ doc('calendar_price') }}"
+      - name: revenue
+        description: "{{ doc('calendar_revenue') }}"
+      - name: listing_date
+        description: "{{ doc('listing_date') }}"
+        data_tests:
+          - not_null

@@ -16,7 +16,7 @@ listing_days as (
         not s_calendar.is_available as is_occupied,
         s_calendar.minimum_nights,
         s_calendar.maximum_nights,
-        s_amenities.amenities,
+        coalesce(s_amenities.amenities, s_listings.amenities) as amenities,
         s_calendar.price,
         if(s_calendar.reservation_id is null, 0, s_calendar.price) as revenue,
         s_calendar.listing_date

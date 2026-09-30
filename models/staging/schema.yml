@@ -11,6 +11,15 @@ models:
           - not_null
       - name: listing_id
         description: "{{ doc('listing_id') }}"
+        data_tests:
+          # warn, not fail: listing 276450 is a known gap (its listings row has no ID), and we keep its
+          # calendar days. The warning keeps the gap visible and shows if more listings go missing.
+          - relationships:
+              arguments:
+                to: ref('stg_listings')
+                field: listing_id
+              config:
+                severity: warn
       - name: listing_date
         description: "{{ doc('listing_date') }}"
       - name: is_available
@@ -18,7 +27,7 @@ models:
       - name: reservation_id
         description: "{{ doc('reservation_id') }}"
       - name: price
-        description: "{{ doc('price') }}"
+        description: "{{ doc('calendar_price') }}"
       - name: minimum_nights
         description: "{{ doc('minimum_nights') }}"
       - name: maximum_nights
@@ -82,6 +91,6 @@ models:
       - name: listing_id
         description: "{{ doc('listing_id') }}"
       - name: changed_at
-        description: "{{ doc('changed_at') }}"
+        description: "{{ doc('amenities_changed_at') }}"
       - name: amenities
         description: "{{ doc('changelog_amenities') }}"

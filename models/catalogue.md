@@ -23,7 +23,7 @@ Contains 't' if this property is available on this date. Contains 'f' if not.
 Unique ID for that DATE's reservation. Foreign key. If NULL, there was no reservation on that date.
 {% enddocs %}
 
-{% docs price %}
+{% docs calendar_price %}
 The USD price to rent this property on DATE.
 {% enddocs %}
 
@@ -119,10 +119,40 @@ The average review score of this listing.
 Surrogate primary key for an amenities change, generated from listing_id and changed_at.
 {% enddocs %}
 
-{% docs changed_at %}
+{% docs amenities_changed_at %}
 When the amenities list changed.
 {% enddocs %}
 
 {% docs changelog_amenities %}
 (Parseable as JSON) Array of the amenities available as of the change.
+{% enddocs %}
+
+{% docs amenities_valid_from %}
+Start of the period this amenities version applies to (inclusive). Equal to the changelog's changed_at.
+{% enddocs %}
+
+{% docs amenities_valid_to %}
+End of the period this amenities version applies to (exclusive): the next change for the same listing,
+or 9999-12-31 for the current version. Join with `date >= valid_from and date < valid_to`.
+{% enddocs %}
+
+{% docs amenities_is_current %}
+True for the latest amenities version of each listing (valid_to = 9999-12-31).
+{% enddocs %}
+
+{% docs is_occupied %}
+True if the listing was not available on this date. In this data every unavailable day has a reservation,
+so this is the occupancy flag: average it over days to get the occupancy rate.
+{% enddocs %}
+
+{% docs calendar_revenue %}
+Price earned on this date: the calendar price when the day has a reservation, otherwise 0.
+Sum this for revenue. Do not sum `price`, which is set on every day whether it was booked.
+{% enddocs %}
+
+{% docs fact_amenities %}
+Amenities the listing had on this date. Taken from the amenities changelog version valid on that day;
+a listing is not guaranteed to have changelog history, so where no version covers the day this falls
+back to the listing's current amenities from the listings table. Values are lowercase: filter with e.g.
+`list_contains(amenities, 'air conditioning')`.
 {% enddocs %}
