@@ -27,8 +27,7 @@ listing_days as (
     left join s_amenities
         on
             s_calendar.listing_id = s_amenities.listing_id
-            and s_calendar.listing_date >= s_amenities.valid_from
-            and s_calendar.listing_date < s_amenities.valid_to
+            and s_calendar.listing_date between s_amenities.valid_from and s_amenities.valid_to
 
 )
 

@@ -128,12 +128,12 @@ When the amenities list changed.
 {% enddocs %}
 
 {% docs amenities_valid_from %}
-Start of the period this amenities version applies to (inclusive). Equal to the changelog's changed_at.
+First day this amenities version applies (inclusive): the date of the change.
 {% enddocs %}
 
 {% docs amenities_valid_to %}
-End of the period this amenities version applies to (exclusive): the next change for the same listing,
-or 9999-12-31 for the current version. Join with `date >= valid_from and date < valid_to`.
+Last day this amenities version applies (inclusive): the day before the listing's next change, or 9999-12-31
+for the current version. Find the version for a date with `date between valid_from and valid_to`.
 {% enddocs %}
 
 {% docs amenities_is_current %}

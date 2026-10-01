@@ -16,8 +16,8 @@ unit_tests:
           - {listing_id: 1, listing_name: "Harbour view", neighborhood: "Back Bay"}
       - input: ref('int_amenities_history')
         rows:
-          - {listing_id: 1, amenities: "[wifi]", valid_from: "2021-01-01 00:00:00", valid_to: "2021-06-01 00:00:00"}
-          - {listing_id: 1, amenities: "[wifi, lockbox]", valid_from: "2021-06-01 00:00:00", valid_to: "9999-12-31 00:00:00"}
+          - {listing_id: 1, amenities: "[wifi]", valid_from: "2021-01-01", valid_to: "2021-05-31"}
+          - {listing_id: 1, amenities: "[wifi, lockbox]", valid_from: "2021-06-01", valid_to: "9999-12-31"}
     expect:
       rows:
         - {listing_id: 1, listing_date: "2021-05-31", is_occupied: true, revenue: 100, amenities: "[wifi]"}
