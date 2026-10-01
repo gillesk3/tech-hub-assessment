@@ -1,7 +1,7 @@
 with ac as (
 
     select
-        date_trunc('month', listing_date) as revenue_month,
+        cast(date_trunc('month', listing_date) as date) as revenue_month,
         {{ array_contains_value('amenities', "'air conditioning'") }} as has_ac,
         sum(revenue) as revenue
 

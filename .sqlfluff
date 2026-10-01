@@ -2,20 +2,8 @@
 dialect = duckdb
 templater = dbt
 max_line_length = 120
-# ST06: keep keys first in select lists (dbt style guide) rather than forcing plain columns before calculations.
-exclude_rules = ST06
-
-[sqlfluff:templater:dbt]
-# compile models through dbt itself, so ref(), package macros (dbt_utils) and project macros resolve
-project_dir = .
-profiles_dir = .
-
-[sqlfluff:indentation]
-indent_unit = space
-tab_space_size = 4
-
-[sqlfluff:layout:type:comma]
-line_position = trailing
+# AL09: staging aliases columns to themselves to lowercase the seeds' headers.
+exclude_rules = AL09
 
 [sqlfluff:rules:capitalisation.keywords]
 capitalisation_policy = lower
