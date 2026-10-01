@@ -6,8 +6,8 @@ s_amenities_changelog as (select * from {{ ref('amenities_changelog') }}),
 base as (
 
     select
-        try_cast(listing_id as integer) as listing_id,
-        try_cast(change_at as timestamp) as changed_at,
+        cast(listing_id as integer) as listing_id,
+        cast(change_at as timestamp) as changed_at,
         {{ parse_json_array('lower(amenities)') }} as amenities
     from s_amenities_changelog
 
