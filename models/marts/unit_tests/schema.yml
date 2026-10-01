@@ -1,7 +1,7 @@
 version: 2
 
 unit_tests:
-  - name: test__fact_listing__revenue_and_amenities_as_of_day
+  - name: test__fact_listings__revenue_and_amenities_as_of_day
     description: >
       Revenue is the price on booked days and 0 otherwise. Each day gets the amenities version valid on
       that date: the day before a change keeps the old version, the day of the change gets the new one.
