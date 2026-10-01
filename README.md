@@ -94,8 +94,8 @@ dbt docs serve
 Tests sit at three levels, each run by `dbt build`:
 
 - **Keys and grain** (generic tests in `schema.yml`): primary keys are unique and not null, the fact is unique
-  per listing and day, and each listing has one current amenities version. These fail the build: if they
-  break, the output is wrong.
+  per listing and day, and each listing has one current amenities version and at most one per day. These
+  fail the build: if they break, the output is wrong.
 - **Business rules** (singular tests in `tests/`): rules checked on the real data, e.g. no revenue on an
   unoccupied day.
 - **Transformation logic** (unit tests in `*/unit_tests/`): fixed inputs with expected outputs for the
@@ -138,7 +138,7 @@ guarantees it (keys and grain), not to source values that could legitimately be 
   reservation" exactly, and a singular test keeps revenue and occupancy consistent. If owner-blocked days
   appeared, occupancy should come from the reservation instead.
 - **Amenity versions** apply from the change date through the day before the next change (both inclusive),
-  assuming at most one change per listing per day. Days before a listing's first
+  assuming at most one change per listing per day (enforced by a test). Days before a listing's first
   change fall back to its current amenities; this doesn't occur in the data.
 - **Problem 2** is the per-listing price change between 2021-07-12 and 2022-07-11, averaged per neighborhood
   including unchanged and reduced prices. Listings with no neighborhood (currently only 276450) are excluded.

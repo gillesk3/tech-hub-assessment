@@ -6,6 +6,14 @@ models:
       Amenities history as a type 2 slowly changing dimension: one row per listing per amenities version,
       with the period each version was valid. Built from the amenities changelog; used to attach the
       amenities a listing had on a given day.
+    data_tests:
+      # at most one change per listing per day: a second same-day change would end the earlier version
+      # the day before it starts, so it would never match a day in fact_listing
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - listing_id
+              - valid_from
     columns:
       - name: amenities_changelog_id
         description: "{{ doc('amenities_changelog_id') }}"
