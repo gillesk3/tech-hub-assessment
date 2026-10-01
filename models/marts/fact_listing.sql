@@ -18,7 +18,7 @@ listing_days as (
         s_calendar.maximum_nights,
         coalesce(s_amenities.amenities, s_listings.amenities) as amenities,
         s_calendar.price,
-        if(s_calendar.reservation_id is null, 0, s_calendar.price) as revenue,
+        case when s_calendar.reservation_id is not null then s_calendar.price else 0 end as revenue,
         s_calendar.listing_date
 
     from s_calendar

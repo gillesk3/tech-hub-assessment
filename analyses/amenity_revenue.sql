@@ -2,7 +2,7 @@ with ac as (
 
     select
         date_trunc('month', listing_date) as revenue_month,
-        list_contains(amenities, 'air conditioning') as has_ac,
+        {{ array_contains_value('amenities', "'air conditioning'") }} as has_ac,
         sum(revenue) as revenue
 
     from {{ ref('fact_listing') }}

@@ -1,0 +1,11 @@
+repos:
+  - repo: https://github.com/sqlfluff/sqlfluff
+    rev: 4.3.0
+    hooks:
+      # fixes staged model/analysis SQL in place; if anything changed the commit stops so the fixes can be reviewed and re-staged
+      - id: sqlfluff-fix
+        files: ^(models|analyses)/.*\.sql$
+        additional_dependencies:
+          - sqlfluff-templater-dbt==4.3.0
+          - dbt-core==1.12.5
+          - dbt-duckdb==1.11.0

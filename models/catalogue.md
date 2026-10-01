@@ -153,6 +153,5 @@ Sum this for revenue. Do not sum `price`, which is set on every day whether it w
 {% docs fact_amenities %}
 Amenities the listing had on this date. Taken from the amenities changelog version valid on that day;
 a listing is not guaranteed to have changelog history, so where no version covers the day this falls
-back to the listing's current amenities from the listings table. Values are lowercase: filter with e.g.
-`list_contains(amenities, 'air conditioning')`.
+back to the listing's current amenities from the listings table. Values are lowercase, e.g. 'air conditioning'.
 {% enddocs %}
