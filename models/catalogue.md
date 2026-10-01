@@ -155,3 +155,8 @@ Amenities the listing had on this date. Taken from the amenities changelog versi
 a listing is not guaranteed to have changelog history, so where no version covers the day this falls
 back to the listing's current amenities from the listings table. Values are lowercase, e.g. 'air conditioning'.
 {% enddocs %}
+
+{% docs dim_current_amenities %}
+The listing's current amenities: its latest amenities changelog version, or the amenities from the
+listings table if it has no changelog history. Values are lowercase, e.g. 'air conditioning'.
+{% enddocs %}

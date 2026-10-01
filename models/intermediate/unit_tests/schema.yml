@@ -1,0 +1,19 @@
+version: 2
+
+unit_tests:
+  - name: test__int_amenities_history__validity_windows
+    description: >
+      Each amenities version is valid until the listing's next change; the latest version stays open
+      (ends 9999-12-31) and is the only current one.
+    model: int_amenities_history
+    given:
+      - input: ref('stg_amenities_changelog')
+        rows:
+          - {listing_id: 1, changed_at: "2021-01-01 00:00:00"}
+          - {listing_id: 1, changed_at: "2021-06-01 00:00:00"}
+          - {listing_id: 2, changed_at: "2021-03-01 00:00:00"}
+    expect:
+      rows:
+        - {listing_id: 1, valid_from: "2021-01-01 00:00:00", valid_to: "2021-06-01 00:00:00", is_current: false}
+        - {listing_id: 1, valid_from: "2021-06-01 00:00:00", valid_to: "9999-12-31 00:00:00", is_current: true}
+        - {listing_id: 2, valid_from: "2021-03-01 00:00:00", valid_to: "9999-12-31 00:00:00", is_current: true}

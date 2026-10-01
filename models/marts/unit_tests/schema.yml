@@ -1,0 +1,24 @@
+version: 2
+
+unit_tests:
+  - name: test__fact_listing__revenue_and_amenities_as_of_day
+    description: >
+      Revenue is the price on booked days and 0 otherwise. Each day gets the amenities version valid on
+      that date: the day before a change keeps the old version, the day of the change gets the new one.
+    model: fact_listing
+    given:
+      - input: ref('stg_calendar')
+        rows:
+          - {listing_id: 1, listing_date: "2021-05-31", is_available: false, reservation_id: 10, price: 100}
+          - {listing_id: 1, listing_date: "2021-06-01", is_available: true, reservation_id: null, price: 120}
+      - input: ref('stg_listings')
+        rows:
+          - {listing_id: 1, listing_name: "Harbour view", neighborhood: "Back Bay"}
+      - input: ref('int_amenities_history')
+        rows:
+          - {listing_id: 1, amenities: "[wifi]", valid_from: "2021-01-01 00:00:00", valid_to: "2021-06-01 00:00:00"}
+          - {listing_id: 1, amenities: "[wifi, lockbox]", valid_from: "2021-06-01 00:00:00", valid_to: "9999-12-31 00:00:00"}
+    expect:
+      rows:
+        - {listing_id: 1, listing_date: "2021-05-31", is_occupied: true, revenue: 100, amenities: "[wifi]"}
+        - {listing_id: 1, listing_date: "2021-06-01", is_occupied: false, revenue: 0, amenities: "[wifi, lockbox]"}

@@ -43,3 +43,52 @@ models:
         description: "{{ doc('listing_date') }}"
         data_tests:
           - not_null
+
+  - name: dim_listings
+    description: |
+      One row per listing with its current attributes and current amenities. Useful for quick lookups,
+      such as which listings currently offer a given amenity, or a listing's host and neighborhood.
+
+      Use with care:
+      - Amenities here are the current ones. For anything over time (revenue, occupancy, prices),
+        use fact_listing, which has the amenities as of each day.
+    columns:
+      - name: listing_id
+        description: "{{ doc('listings_listing_id') }}"
+        data_tests:
+          - unique
+          - not_null
+      - name: listing_name
+        description: "{{ doc('listing_name') }}"
+      - name: host_id
+        description: "{{ doc('host_id') }}"
+      - name: host_name
+        description: "{{ doc('host_name') }}"
+      - name: host_location
+        description: "{{ doc('host_location') }}"
+      - name: host_verifications
+        description: "{{ doc('host_verifications') }}"
+      - name: neighborhood
+        description: "{{ doc('neighborhood') }}"
+      - name: property_type
+        description: "{{ doc('property_type') }}"
+      - name: room_type
+        description: "{{ doc('room_type') }}"
+      - name: accommodates
+        description: "{{ doc('accommodates') }}"
+      - name: bathrooms_text
+        description: "{{ doc('bathrooms_text') }}"
+      - name: bedrooms
+        description: "{{ doc('bedrooms') }}"
+      - name: beds
+        description: "{{ doc('beds') }}"
+      - name: amenities
+        description: "{{ doc('dim_current_amenities') }}"
+      - name: listing_price
+        description: "{{ doc('listing_price') }}"
+      - name: number_of_reviews
+        description: "{{ doc('number_of_reviews') }}"
+      - name: last_review
+        description: "{{ doc('last_review') }}"
+      - name: review_scores_rating
+        description: "{{ doc('review_scores_rating') }}"
