@@ -5,7 +5,7 @@ unit_tests:
     description: >
       Revenue is the price on booked days and 0 otherwise. Each day gets the amenities version valid on
       that date: the day before a change keeps the old version, the day of the change gets the new one.
-    model: fact_listing
+    model: fact_listings
     given:
       - input: ref('stg_calendar')
         rows:

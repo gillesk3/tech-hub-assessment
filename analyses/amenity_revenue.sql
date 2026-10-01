@@ -5,7 +5,7 @@ with ac as (
         {{ array_contains_value('amenities', "'air conditioning'") }} as has_ac,
         sum(revenue) as revenue
 
-    from {{ ref('fact_listing') }}
+    from {{ ref('fact_listings') }}
     group by all
 
 )

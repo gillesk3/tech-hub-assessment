@@ -8,7 +8,7 @@ models:
       amenities a listing had on a given day.
     data_tests:
       # at most one change per listing per day: a second same-day change would end the earlier version
-      # the day before it starts, so it would never match a day in fact_listing
+      # the day before it starts, so it would never match a day in fact_listings
       - dbt_utils.unique_combination_of_columns:
           arguments:
             combination_of_columns:

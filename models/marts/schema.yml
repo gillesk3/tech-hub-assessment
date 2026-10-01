@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: fact_listing
+  - name: fact_listings
     description: |
       One row per listing per day for the calendar period (2021-07-12 to 2022-07-11), for revenue,
       occupancy and amenity analysis. Amenities are as of each day where changelog history exists,
@@ -51,7 +51,7 @@ models:
 
       Use with care:
       - Amenities here are the current ones. For anything over time (revenue, occupancy, prices),
-        use fact_listing, which has the amenities as of each day.
+        use fact_listings, which has the amenities as of each day.
     columns:
       - name: listing_id
         description: "{{ doc('listings_listing_id') }}"

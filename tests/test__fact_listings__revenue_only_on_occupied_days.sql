@@ -6,7 +6,7 @@ select
     listing_date,
     is_occupied,
     revenue
-from {{ ref('fact_listing') }}
+from {{ ref('fact_listings') }}
 where
     not is_occupied
     and revenue <> 0

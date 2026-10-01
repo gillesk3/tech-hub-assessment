@@ -6,7 +6,7 @@ with listings as (
         neighborhood,
         price
 
-    from {{ ref('fact_listing') }}
+    from {{ ref('fact_listings') }}
     where listing_date = '2021-07-12' or listing_date = '2022-07-11'
 
 ),

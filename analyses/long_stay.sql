@@ -9,7 +9,7 @@ with filtered_listings as (
         and {{ array_contains_value('amenities', "'first aid kit'") }} as is_bookable,
         lag(is_bookable) over (partition by listing_id order by listing_date) as prev_is_bookable
 
-    from {{ ref('fact_listing') }}
+    from {{ ref('fact_listings') }}
 ),
 
 
