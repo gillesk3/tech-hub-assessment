@@ -2,8 +2,7 @@
 
 A dbt project modelling rental listings, a daily calendar and an amenities changelog into a listing/day
 mart for revenue, occupancy and amenity analysis. Built on DuckDB; the JSON-array handling is behind
-adapter-dispatched macros with DuckDB and Snowflake implementations (see Known limitations for what else would
-need changing to run on Snowflake).
+adapter-dispatched macros with DuckDB and Snowflake implementations.
 
 ## Running it
 
@@ -151,19 +150,16 @@ guarantees it (keys and grain), not to source values that could legitimately be 
   `minimum_nights` (no effect on the results here).
 - **Partial months:** July 2021 and July 2022 are partial, so compare them per day rather than by total.
 - **Full rebuilds only:** incremental loading would need a load timestamp from the source.
-- **Running on Snowflake:** the JSON-array functions are behind dispatch macros; two things would still need
-  checking or changing: the `is_bookable` alias inside `lag()` in `long_stay` (unverified on Snowflake) and the
-  array fixtures in the `fact_listing` unit test.
 
 ## AI usage
 
 I used AI as I would professionally: as a pair programmer to speed up setup, explore alternatives and review my
 work. The modelling decisions are mine, I wrote or directed all of the SQL in the models and analyses, and I
-reviewed and verified everything before keeping it.
+reviewed and verified everything before committing it.
 
 | Area | What I did | How AI helped |
 |---|---|---|
-| Setup and conventions | Chose DuckDB and seeds so the project runs anywhere; set the conventions: a schema per layer, the optional `dbt_<USER>_` prefix (and simplified its macro), `s_` import CTEs, `<entity>_id` keys, one `schema.yml` per folder and a shared `catalogue.md`. | Installed dbt and DuckDB and set up the initial project config to my conventions. |
+| Setup and conventions | Chose DuckDB and seeds so the project runs anywhere; set the conventions: a schema per layer, the optional `dbt_<USER>_` prefix (and simplified its macro), one `schema.yml` per folder and a shared `catalogue.md`. | Installed dbt and DuckDB and set up the initial project config to my conventions. |
 | Design | Made the decisions in this README: the grain, the SCD in intermediate and its inclusive end dates, array vs bridge table, deduplicating in staging, keeping 276450, explicit mart columns, and `dim_listings` for quick lookups. | Talked through alternatives with me: snapshot vs SCD, bridge table, star schema vs one wide table, incremental models. |
 | Data exploration | Investigated the source data, confirmed each finding with my own queries and decided how to handle it. | Ran profiling queries that helped surface the duplicate calendar rows, listing 276450, the test listing and how availability lines up with reservations. |
 | Models and analyses | Wrote the staging, intermediate and fact models and the three analyses; specified `dim_listings` and the later changes (the end-date switch, explicit final selects); fixed the issues found in review, keeping changes targeted. | Reviewed my drafts and flagged bugs, e.g. the revenue condition, the SCD boundary and current-version logic, the Q2 filter and booked periods counted in Q3; implemented changes I specified. |
@@ -176,5 +172,3 @@ reviewed and verified everything before keeping it.
 - Every analysis reproduces the example answers in the brief (21.2%, $44, 159).
 - `dbt build` runs all data tests and unit tests; SQLFluff lints every model and analysis on commit.
 - Data findings were confirmed with my own queries against the source data.
-- The `long_stay` fix was tested against a hand-built example (a free period with the lockbox missing for
-  three days) to confirm it splits the period, and against the real data to confirm the answer is unchanged.
