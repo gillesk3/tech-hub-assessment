@@ -15,6 +15,7 @@ analyses:
   - name: long_stay
     description: >
       Business problem 3: longest possible stay for listings with both a lockbox and a first aid kit.
-      Finds runs of consecutive available days (gaps and islands) and caps each run at the host's
-      maximum_nights on check-in. Listing 1303261 = 159 nights. Stays are measured within the calendar
-      period only.
+      Finds runs of consecutive days that are free and have both amenities (gaps and islands), then tries
+      every day as a check-in: the stay is limited by the days left in the run and that day's maximum_nights.
+      Listing 1303261 = 159 nights. Stays are measured within the calendar period only, and minimum_nights
+      is not applied.
