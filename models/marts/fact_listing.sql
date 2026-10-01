@@ -11,15 +11,15 @@ listing_days as (
 
     select
         s_calendar.listing_id,
+        s_calendar.listing_date,
         s_listings.listing_name,
         s_listings.neighborhood,
-        not s_calendar.is_available as is_occupied,
         s_calendar.minimum_nights,
         s_calendar.maximum_nights,
-        coalesce(s_amenities.amenities, s_listings.amenities) as amenities,
         s_calendar.price,
-        case when s_calendar.reservation_id is not null then s_calendar.price else 0 end as revenue,
-        s_calendar.listing_date
+        not s_calendar.is_available as is_occupied,
+        coalesce(s_amenities.amenities, s_listings.amenities) as amenities,
+        case when s_calendar.reservation_id is not null then s_calendar.price else 0 end as revenue
 
     from s_calendar
     left join s_listings
@@ -32,4 +32,15 @@ listing_days as (
 
 )
 
-select * from listing_days
+select
+    listing_id,
+    listing_name,
+    neighborhood,
+    is_occupied,
+    minimum_nights,
+    maximum_nights,
+    amenities,
+    price,
+    revenue,
+    listing_date
+from listing_days

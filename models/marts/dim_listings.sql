@@ -14,24 +14,8 @@ s_current_amenities as (
 current_listing_state as (
 
     select
-        s_listings.listing_id,
-        s_listings.listing_name,
-        s_listings.host_id,
-        s_listings.host_name,
-        s_listings.host_location,
-        s_listings.host_verifications,
-        s_listings.neighborhood,
-        s_listings.property_type,
-        s_listings.room_type,
-        s_listings.accommodates,
-        s_listings.bathrooms_text,
-        s_listings.bedrooms,
-        s_listings.beds,
-        coalesce(s_current_amenities.amenities, s_listings.amenities) as amenities,
-        s_listings.listing_price,
-        s_listings.number_of_reviews,
-        s_listings.last_review,
-        s_listings.review_scores_rating
+        s_listings.* exclude (amenities),
+        coalesce(s_current_amenities.amenities, s_listings.amenities) as amenities
 
     from s_listings
     left join s_current_amenities
@@ -39,4 +23,25 @@ current_listing_state as (
 
 )
 
-select * from current_listing_state
+select
+    listing_id,
+    listing_name,
+    host_id,
+    host_name,
+    host_since,
+    host_location,
+    host_verifications,
+    neighborhood,
+    property_type,
+    room_type,
+    accommodates,
+    bathrooms_text,
+    bedrooms,
+    beds,
+    amenities,
+    listing_price,
+    number_of_reviews,
+    first_review,
+    last_review,
+    review_scores_rating
+from current_listing_state

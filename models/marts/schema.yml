@@ -64,6 +64,8 @@ models:
         description: "{{ doc('host_id') }}"
       - name: host_name
         description: "{{ doc('host_name') }}"
+      - name: host_since
+        description: "{{ doc('host_since') }}"
       - name: host_location
         description: "{{ doc('host_location') }}"
       - name: host_verifications
@@ -88,6 +90,8 @@ models:
         description: "{{ doc('listing_price') }}"
       - name: number_of_reviews
         description: "{{ doc('number_of_reviews') }}"
+      - name: first_review
+        description: "{{ doc('first_review') }}"
       - name: last_review
         description: "{{ doc('last_review') }}"
       - name: review_scores_rating
